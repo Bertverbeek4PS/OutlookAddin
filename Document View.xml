@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<OfficeApp xsi:type="MailApp" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="http://schemas.microsoft.com/office/appforoffice/1.1"
+    xmlns:bt="http://schemas.microsoft.com/office/officeappbasictypes/1.0"
+    xmlns:o10="http://schemas.microsoft.com/office/mailappversionoverrides"
+    xmlns:o11="http://schemas.microsoft.com/office/mailappversionoverrides/1.1">
+    <Id>6e8ffb1d-5dc3-4546-8bd7-b419dd6f8f30</Id>
+    <Version>2.1.0.0</Version>
+    <ProviderName>4PS</ProviderName>
+    <DefaultLocale>en-US</DefaultLocale>
+    <DisplayName DefaultValue="Document View 4PS" />
+    <Description DefaultValue="Provides a link directly to business documents in 4PS Construct." />
+    <IconUrl
+        DefaultValue="https://businesscentral.dynamics.com/f347666b-e7a9-4dbb-a45f-7836c99d9999/Test/Resources/Images/ProjectMadeira/OfficeAddin_64x.png" />
+    <HighResolutionIconUrl
+        DefaultValue="https://businesscentral.dynamics.com/f347666b-e7a9-4dbb-a45f-7836c99d9999/Test/Resources/Images/ProjectMadeira/OfficeAddin_64x.png" />
+    <AppDomains>
+        <AppDomain>https://businesscentral.dynamics.com/f347666b-e7a9-4dbb-a45f-7836c99d9999/Test</AppDomain>
+    </AppDomains>
+    <Hosts>
+        <Host Name="Mailbox" />
+    </Hosts>
+    <Requirements>
+        <Sets>
+            <Set Name="MailBox" MinVersion="1.1" />
+        </Sets>
+    </Requirements>
+    <FormSettings>
+        <Form xsi:type="ItemRead">
+            <DesktopSettings>
+                <SourceLocation
+                    DefaultValue="https://businesscentral.dynamics.com/f347666b-e7a9-4dbb-a45f-7836c99d9999/Test/OfficeAddin.aspx?OfficeContext=ItemRead&amp;Version=2.1.0.0" />
+                <RequestedHeight>300</RequestedHeight>
+            </DesktopSettings>
+            <TabletSettings>
+                <SourceLocation
+                    DefaultValue="https://businesscentral.dynamics.com/f347666b-e7a9-4dbb-a45f-7836c99d9999/Test/OfficeAddin.aspx?OfficeContext=ItemRead&amp;Version=2.1.0.0" />
+                <RequestedHeight>400</RequestedHeight>
+            </TabletSettings>
+            <PhoneSettings>
+                <SourceLocation
+                    DefaultValue="https://businesscentral.dynamics.com/f347666b-e7a9-4dbb-a45f-7836c99d9999/Test/OfficeAddin.aspx?OfficeContext=ItemRead&amp;Version=2.1.0.0&amp;isphone=1" />
+            </PhoneSettings>
+        </Form>
+        <Form xsi:type="ItemEdit">
+            <DesktopSettings>
+                <SourceLocation
+                    DefaultValue="https://businesscentral.dynamics.com/f347666b-e7a9-4dbb-a45f-7836c99d9999/Test/OfficeAddin.aspx?OfficeContext=ItemEdit&amp;Version=2.1.0.0" />
+            </DesktopSettings>
+            <TabletSettings>
+                <SourceLocation
+                    DefaultValue="https://businesscentral.dynamics.com/f347666b-e7a9-4dbb-a45f-7836c99d9999/Test/OfficeAddin.aspx?OfficeContext=ItemEdit&amp;Version=2.1.0.0" />
+            </TabletSettings>
+            <PhoneSettings>
+                <SourceLocation
+                    DefaultValue="https://businesscentral.dynamics.com/f347666b-e7a9-4dbb-a45f-7836c99d9999/Test/OfficeAddin.aspx?OfficeContext=ItemEdit&amp;Version=2.1.0.0&amp;isphone=1" />
+            </PhoneSettings>
+        </Form>
+    </FormSettings>
+    <Permissions>ReadWriteMailbox</Permissions>
+    <Rule xsi:type="RuleCollection" Mode="And">
+        <Rule xsi:type="RuleCollection" Mode="Or">      <!-- To add more complex rules, add additional
+            rule elements -->      <!-- E.g. To activate when a message contains an
+            address -->      <!-- <Rule xsi:type="ItemHasKnownEntity"
+            EntityType="Address" /> -->
+            <Rule xsi:type="ItemHasRegularExpressionMatch" RegExName="DocumentTypes"
+                RegExValue="(IFA|IOF|IOR|IFC|IFC|ME|SO)([A-Za-z0-9]+)|(invoice|order|quote|credit memo|Purchase Header|Purchase Header|Purchase Header|Purchase Header|Service Call|Service Order):? ?#?([\w_/\#\*\+\\\|-]*[0-9]+)"
+                PropertyName="BodyAsPlaintext" IgnoreCase="true" />
+        </Rule>
+        <Rule xsi:type="RuleCollection" Mode="Or">
+            <Rule xsi:type="ItemIs" FormType="Edit" ItemType="Message" />
+            <Rule xsi:type="ItemIs" FormType="Read" ItemType="Message" />
+        </Rule>
+    </Rule>
+    <DisableEntityHighlighting>false</DisableEntityHighlighting>
+    <VersionOverrides xmlns="http://schemas.microsoft.com/office/mailappversionoverrides"
+        xsi:type="VersionOverridesV1_0">    <!-- VersionOverrides for the v1.1 schema -->
+        <VersionOverrides xmlns="http://schemas.microsoft.com/office/mailappversionoverrides/1.1"
+            xsi:type="VersionOverridesV1_1">
+            <Requirements>
+                <bt:Sets DefaultMinVersion="1.5">
+                    <bt:Set Name="Mailbox" />
+                </bt:Sets>
+            </Requirements>
+            <Hosts>
+                <Host xsi:type="MailHost">
+                    <DesktopFormFactor>            <!-- DetectedEntity -->
+                        <ExtensionPoint xsi:type="DetectedEntity">
+                            <Label resid="contextLabel" />
+                            <SourceLocation resid="detectedEntityUrl" />
+                            <Rule xsi:type="RuleCollection" Mode="And">
+                                <Rule xsi:type="ItemIs" ItemType="Message" />
+                                <Rule xsi:type="RuleCollection" Mode="Or">                  <!-- To add more complex
+                                    rules, add additional rule elements -->                  <!-- E.g. To activate when
+                                    a message contains an address -->                  <!-- <Rule
+                                    xsi:type="ItemHasKnownEntity" EntityType="Address" /> -->
+                                    <Rule xsi:type="ItemHasRegularExpressionMatch"
+                                        RegExName="DocumentTypes"
+                                        RegExValue="(IFA|IOF|IOR|IFC|IFC|ME|SO)([A-Za-z0-9]+)|(invoice|order|quote|credit memo|Purchase Header|Purchase Header|Purchase Header|Purchase Header|Service Call|Service Order):? ?#?([\w_/\#\*\+\\\|-]*[0-9]+)"
+                                        PropertyName="BodyAsPlaintext" IgnoreCase="true" />
+                                </Rule>
+                            </Rule>
+                        </ExtensionPoint>
+                    </DesktopFormFactor>
+                </Host>
+            </Hosts>
+            <Resources>
+                <bt:Urls>
+                    <bt:Url id="detectedEntityUrl"
+                        DefaultValue="https://businesscentral.dynamics.com/f347666b-e7a9-4dbb-a45f-7836c99d9999/Test/OfficeAddin.aspx?OfficeContext=Outlook-Hyperlink&amp;Version=2.1.0.0" />
+                </bt:Urls>
+                <bt:ShortStrings>
+                    <bt:String id="contextLabel" DefaultValue="Document View 4PS" />
+                </bt:ShortStrings>
+            </Resources>
+        </VersionOverrides>
+    </VersionOverrides>
+</OfficeApp>
